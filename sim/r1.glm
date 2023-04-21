@@ -1,0 +1,239 @@
+// 12.47 kV feeder
+
+clock {
+	timezone EST+5EDT;
+};
+
+#set minimum_timestep=1;
+#set profiler=1;
+#set relax_naming_rules=1;
+
+
+
+//********************************************* 
+module tape; 
+module powerflow { 
+    solver_method NR; 
+};
+
+module market;
+module connection;
+
+object helics_msg {
+     name R1helicsconfig;
+     configure r1config.json;
+}
+
+//******************* R1 building portion *******************
+
+object substation {
+	name source;
+	phases ABCN;
+	reference_phase PHASE_A;
+    positive_sequence_voltage 12470.562+0.0j;
+    nominal_voltage 12470.00;
+    base_power 1500;
+    power_convergence_value 0.1;
+    bustype SWING;
+	} 
+
+object overhead_line{
+	name sourceton111;
+	phases ABCN;
+	from source;
+	to n111;
+    length 2280;//approximation of average length of distribution line
+	configuration line1_cfg;
+	}
+
+object node {
+	name n111;
+	phases ABCN;
+	nominal_voltage 12470.0;
+	}
+
+object overhead_line{
+	name n111ton125;
+	phases ABCN;
+	from n111;
+	to n125;
+    length 2280;//?
+	configuration line1_cfg;
+	}
+
+object line_configuration {
+    name line1_cfg;
+    conductor_A overhead_line_conductor_1;
+	conductor_B overhead_line_conductor_1;
+	conductor_C overhead_line_conductor_1;
+	conductor_N overhead_line_conductor_0;
+    spacing line_spacing_200; //because we do not have the information, trying to skip this portion
+}
+
+object line_spacing { //?
+	name line_spacing_200;
+	distance_AB 5.5;
+	distance_BC 4.5;
+	distance_AC 7.0;
+	distance_AN 5.656854;
+	distance_BN 4.272002;
+	distance_CN 5.0;
+	}
+
+object overhead_line_conductor {
+	name overhead_line_conductor_0;
+	diameter 0.027075; // for 2 or 2G
+    resistance 0.012; //?
+}
+
+object overhead_line_conductor {
+	name overhead_line_conductor_1;
+	diameter 0.021466; // for 1/0 AWG //source: https://ripley-tools.com/utility-cable-sizing/#gsc.tab=0
+    resistance 0.103; // calculated from line power and voltage
+}
+
+// write overhead line property for 500kcmil 
+// write overhead line property for 4/0 
+
+object node {
+	name n125;
+	phases ABCN;
+	nominal_voltage 12470.0;
+	}
+
+object switch {
+    name s36;
+    phases ABCN;
+    from n125;
+    to n127;
+    status CLOSED;
+}
+
+object node {
+	name n127;
+	phases ABCN;
+	nominal_voltage 12470.0;
+	}
+
+object fuse {
+    phases ABCN;
+    name f27;
+    from n127;
+    to n128;
+    current_limit 120.28; //1500KVA power on 12.47 rated 133% limit
+    repair_dist_type NONE;
+    //status CLOSED;
+}
+
+object node {
+	name n128;
+	phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name f28;
+    from n128;
+    to n129;
+    current_limit 120.28; //1500KVA power on 12.47 rated 133% limit
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+	name n129;
+	phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object transformer {
+    name t11;
+    phases ABCN;
+    from n129;
+    to n130;
+    configuration xconfig1;
+}
+
+object transformer_configuration {
+    name xconfig1;
+    connect_type WYE_WYE;
+    install_type PADMOUNT;
+    primary_voltage 12470;
+    secondary_voltage 480;
+    power_rating 1500; //power rating of equipment is the highest power input allowed to flow through particular equipment
+    rated_winding_hot_spot_rise 65; //From the specification provided for a transformer
+    cooling_type UNKNOWN;
+    resistance 0.103; // calculated out of power, voltage and current 
+	reactance 0.5; // ieee_39_bus_technical_note.pdf 
+}
+
+object node {
+	name n130;
+	phases ABCN;
+    nominal_voltage 480.0;
+	}
+
+object fuse {
+    name f_n130n131;
+    phases ABCN;
+    from n130;
+    to m_t11;
+    current_limit 4.62; //low current limit because of it being on the other side of transformer
+    repair_dist_type NONE;
+}
+
+object meter {
+    name m_t11;
+    phases ABCN;
+	nominal_voltage 480.0;
+    //object player {
+    //    file "/data/nbn_measured_real_power.player";
+    //    property measured_real_power;
+    //};
+}
+
+
+object recorder {
+    file "r1_real_power.csv";
+    parent m_t11;
+    interval 0.33;
+    property measured_voltage_A, measured_power_A, measured_current_A;
+};
+
+object load {
+	name l131;
+	phases ABCN;
+    parent m_t11;
+    nominal_voltage 480;
+	constant_power_A 71+44j;
+	constant_power_B 68+46j;
+	constant_power_C 206+137j;
+    base_power_A 100;
+    base_power_B 200;
+    base_power_C 500;
+}
+
+object voltdump {
+    filename voltage_out.csv;
+    mode POLAR;
+}
+
+object currdump {
+    filename current_out.csv;
+    mode POLAR;
+}
+
+object impedance_dump {
+	filename impedance_output.csv;
+}
+
+object fault_check {
+    name faultcheck;
+    check_mode ALL;
+    output_filename outage_check.txt;
+}
+
+
+
+

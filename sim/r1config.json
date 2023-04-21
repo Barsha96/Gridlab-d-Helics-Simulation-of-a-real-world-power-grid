@@ -1,0 +1,75 @@
+{
+	"name" : "R1",
+	"period" : 1,
+	"publications" : [
+		 {
+			"global" : false,
+			"key" : "n125/voltage_A",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "n125",
+				"property" : "voltage_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "m_t11/monthly_energy",
+			"type" : "double",
+			"unit" : "KWh",
+			"info" : {
+				"object" : "m_t11",
+				"property" : "monthly_energy"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "m_t11/monthly_fee",
+			"type" : "double",
+			"unit" : "Dollar",
+			"info" : {
+				"object" : "m_t11",
+				"property" : "monthly_fee"
+			}
+		 }
+	],
+	"subscriptions" : [
+		 {
+			"key" : "NSU/NSU01/positive_sequence_voltage",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "source",
+				"property" : "positive_sequence_voltage"
+			}
+		 },
+		  {
+			"key" : "NSU/NSU01/current_A",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "source",
+				"property" : "current_A"
+			}
+		 },
+		 {
+			"key" : "NSU/NSU01/current_B",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "source",
+				"property" : "current_B"
+			}
+		 },
+		 {
+			"key" : "NSU/NSU01/current_C",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "source",
+				"property" : "current_C"
+			}
+		 }
+	]
+	
+}

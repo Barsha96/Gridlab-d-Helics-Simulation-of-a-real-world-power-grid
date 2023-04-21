@@ -1,0 +1,27 @@
+//  {
+		// 	"key" : "NSU/NSU01/current_A",
+		// 	"type" : "complex",
+		// 	"unit" : "Amps",
+		// 	"info" : {
+		// 		"object" : "source",
+		// 		"property" : "current_A"
+		// 	}
+		//  },
+		//  {
+		// 	"key" : "NSU/NSU01/current_B",
+		// 	"type" : "complex",
+		// 	"unit" : "Amps",
+		// 	"info" : {
+		// 		"object" : "source",
+		// 		"property" : "current_B"
+		// 	}
+		//  },
+		//  {
+		// 	"key" : "NSU/NSU01/current_C",
+		// 	"type" : "complex",
+		// 	"unit" : "Amps",
+		// 	"info" : {
+		// 		"object" : "source",
+		// 		"property" : "current_C"
+		// 	}
+		//  }

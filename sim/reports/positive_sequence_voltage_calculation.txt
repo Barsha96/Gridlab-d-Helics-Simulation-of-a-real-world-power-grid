@@ -1,0 +1,21 @@
+To represent the average voltage in rectangular complex form, you can convert the phasor form of the average voltage to rectangular complex form using the following formula:
+
+V_avg_rect = V_avg * e^(j*θ)
+
+where V_avg is the magnitude of the average voltage in phasor form, θ is the phase angle in radians (which is 0 degrees for a balanced three-phase system), and e^(j*θ) is the exponential form of the phasor.
+
+In our case, the magnitude of the average voltage is |V_avg| = (1/3)*|V_common|*sqrt(3), and the phase angle is 0 degrees. Therefore, we can write:
+
+V_avg_rect = (1/3)*|V_common|sqrt(3) * e^(j0)
+
+The exponential form of the phasor is:
+
+e^(j0) = cos(0) + jsin(0) = 1 + 0j
+
+Substituting this into the equation for V_avg_rect, we get:
+
+V_avg_rect = (1/3)*|V_common|*sqrt(3) * (1 + 0j)
+
+Simplifying the expression, we get:
+
+V_avg_rect = (1/3)*|V_common|*sqrt(3) + 0j
