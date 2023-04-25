@@ -1,0 +1,11 @@
+#generate daily profile csv for each building being played in simulation
+    daily = building_data[building_data["day"] == current_day]
+    print(daily)
+    
+    daily = daily[["Time", "Power"]]
+    daily['Time'] = pd.to_datetime(daily['Time'])
+    daily = daily.groupby(pd.Grouper(key='Time', freq='1H'))['Power'].mean().reset_index()
+    daily["Time"] = daily["Time"].dt.hour
+    filename = "{}_dailyLoad.csv".format(building_data["building"].iloc[0])
+    daily.to_csv(filename, index=False)
+    day = current_day

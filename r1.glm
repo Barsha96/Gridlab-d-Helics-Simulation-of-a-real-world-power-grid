@@ -206,12 +206,6 @@ object load {
 	phases ABCN;
     parent m_t11;
     nominal_voltage 480;
-	constant_power_A 71+44j;
-	constant_power_B 68+46j;
-	constant_power_C 206+137j;
-    base_power_A 100;
-    base_power_B 200;
-    base_power_C 500;
 }
 
 object voltdump {

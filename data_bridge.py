@@ -6,39 +6,44 @@ import pandas as pd
 class DataBridge:
 
     def calculateInput(self, data):
-
+        
         timestamp = data["ts"].iloc[0]
-
         meter = data["meter_no"].iloc[0]
         bldg = data["building_name"].iloc[0]
-
-        vAN = data.loc[data["topic_name"] == "VoltagePhaseAtoNeutral", "value_string"].iloc[0]
-        vBN = data.loc[data["topic_name"] == "VoltagePhaseBtoNeutral", "value_string"].iloc[0]
-        vCN = data.loc[data["topic_name"] == "VoltagePhaseCtoNeutral", "value_string"].iloc[0]
-
-        vAvg = (vAN + vBN + vCN)/3 * m.sqrt(3)
-
-        
-        apparentPowerA = data.loc[data["topic_name"] == "ApparentPowerPhaseA", "value_string"].iloc[0]
-        apparentPowerB = data.loc[data["topic_name"] == "ApparentPowerPhaseB", "value_string"].iloc[0]
-        apparentPowerC = data.loc[data["topic_name"] == "ApparentPowerPhaseC", "value_string"].iloc[0]
-
-        #total_apparent_power = m.sqrt(pow(int(float(apparentPowerA)),2)+pow(int(float(apparentPowerB)),2)+pow(int(float(apparentPowerC)),2))
-        total_apparent_power = apparentPowerA + apparentPowerB + apparentPowerC
-        
-        newRow = {"Time":timestamp, "building":bldg, "meter":meter, "avgVoltage": vAvg, "Power":total_apparent_power}
+        newRow = {"time":timestamp, "building":bldg, "meter":meter}
 
         if bldg == "NSU":
-            newRow["CurrentPhaseA"] = data.loc[data["topic_name"] == "CurrentPhaseA", "value_string"].iloc[0]
-            newRow["CurrentPhaseB"] = data.loc[data["topic_name"] == "CurrentPhaseB", "value_string"].iloc[0]
-            newRow["CurrentPhaseC"] = data.loc[data["topic_name"] == "CurrentPhaseC", "value_string"].iloc[0]
+            #calculation of average voltage
+            vAN = data.loc[data["topic_name"] == "VoltagePhaseAtoNeutral", "value_string"].iloc[0]
+            vBN = data.loc[data["topic_name"] == "VoltagePhaseBtoNeutral", "value_string"].iloc[0]
+            vCN = data.loc[data["topic_name"] == "VoltagePhaseCtoNeutral", "value_string"].iloc[0]
+            #average voltage 
+            newRow["avgVoltage"] = (vAN + vBN + vCN)/3 * m.sqrt(3)
+            
+            #calculation of current values for substation
+            newRow["currentA"] = data.loc[data["topic_name"] == "CurrentPhaseA", "value_string"].iloc[0]
+            newRow["currentB"] = data.loc[data["topic_name"] == "CurrentPhaseB", "value_string"].iloc[0]
+            newRow["currentC"] = data.loc[data["topic_name"] == "CurrentPhaseC", "value_string"].iloc[0]
 
+        else:
+            realPowerA = data.loc[data["topic_name"] == "RealPowerPhaseA", "value_string"].iloc[0]
+            realPowerB = data.loc[data["topic_name"] == "RealPowerPhaseB", "value_string"].iloc[0]
+            realPowerC = data.loc[data["topic_name"] == "RealPowerPhaseC", "value_string"].iloc[0]
+
+            reactivePowerA = data.loc[data["topic_name"] == "ReactivePowerPhaseA", "value_string"].iloc[0]
+            reactivePowerB = data.loc[data["topic_name"] == "ReactivePowerPhaseB", "value_string"].iloc[0]
+            reactivePowerC = data.loc[data["topic_name"] == "ReactivePowerPhaseC", "value_string"].iloc[0]
+
+            newRow["powerA"] = complex(realPowerA, reactivePowerA)
+            newRow["powerB"] = complex(realPowerB, reactivePowerB)
+            newRow["powerC"] = complex(realPowerC, reactivePowerC)
+        
         return newRow
         
     def requiredData(self, data): #The plan is to calculate the complex voltage and complex power here
     
         #inst is the dataFrame where we put all the data that goes into the simulation fo a single instance of time
-        columns = ["Time","building", "meter", "avgVoltage", "Power", "CurrentPhaseA", "CurrentPhaseB", "CurrentPhaseC"]
+        columns = ["time","building", "meter", "avgVoltage", "currentA", "currentB", "currentC", "powerA", "powerB", "powerC"]
         # columns = ["Time","building", "meter", "avgVoltage", "Power"]
         timestamps = data.ts.unique().tolist()
         inst = pd.DataFrame(columns = columns)
@@ -48,14 +53,12 @@ class DataBridge:
             inst.loc[len(inst)] = input
         
         #we need to feed the power consumption data as a daily parameter of per hour consumption
-        inst['Time'] = pd.to_datetime(inst['Time'])
-        inst['hour'] = inst['Time'].dt.hour
-        inst['day'] = inst.groupby(inst["Time"].dt.date).ngroup()
-        
+        inst['time'] = pd.to_datetime(inst['time'])
+        inst.to_csv("newRow.csv", index=False)
         return inst
 
     def collector(self, building, meter):
-        path = "../dataset/{bldg}/{metername}t.csv".format( bldg = building, metername = meter)
+        path = "../dataset/{bldg}/{metername}_resample_5M10D.csv".format( bldg = building, metername = meter)
         data = pd.read_csv(path)
         reqdata = self.requiredData(data)
         return reqdata    

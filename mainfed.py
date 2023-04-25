@@ -53,7 +53,6 @@ def assign_publication(fed, buildings, pubs, data, subs):
                 cB = pubs["{b}/{m}/current_B".format(b=building, m=meter)]
                 cC = pubs["{b}/{m}/current_C".format(b=building, m=meter)]
                 substation_data = data.collector(building, meter)
-                print(substation_data)
                 print("-----------------------")
         else:
             for meter in meters:
@@ -62,77 +61,162 @@ def assign_publication(fed, buildings, pubs, data, subs):
                 print("-----------------------")
                 
       
-    simulation_time = substation_data["Time"]
+    simulation_time = substation_data["time"]
     currenttime = 0
-    day = 12343334
     
+    columns = ["time","building", "gld_object", "property", "complex_value", "double_value"]
+    output = pd.DataFrame(columns = columns)
 
     for t in simulation_time:
         currenttime = h.helicsFederateRequestTime(fed, currenttime + 20)
-        inputdata = substation_data[substation_data["Time"] == t]
-        current_day = inputdata['day'].iloc[0]
-        avgvoltage = inputdata['avgVoltage'].iloc[0]
-        currentA = inputdata['CurrentPhaseA'].iloc[0]
-        currentB = inputdata['CurrentPhaseB'].iloc[0]
-        currentC = inputdata['CurrentPhaseC'].iloc[0]
-        timee = inputdata['Time'].iloc[0]
+        inputdata = substation_data[substation_data["time"] == t]
+        timee = inputdata['time'].iloc[0]
 
+        #This publishes positive_sequence_voltage and current to substation which takes value of type complex in gridlabd
+        if inputdata['building'].iloc[0] == "NSU":
+            avgvoltage = inputdata['avgVoltage'].iloc[0]
+            currentA = inputdata['currentA'].iloc[0]
+            currentB = inputdata['currentB'].iloc[0]
+            currentC = inputdata['currentC'].iloc[0]
+            pubids = [psv, cA, cB, cC]
+            pub_values = [avgvoltage, currentA, currentB, currentC]
+            publish_voltage_current(pubids, pub_values, timee)
         
-        if len(building_datas) != 0: 
+        if len(building_datas) != 0:
             for building_data in building_datas:
-                if day != current_day:
-                #generate daily profile csv for each building being played in simulation
-                    daily = building_data[building_data["day"] == current_day]
-                    print(daily)
-                    
-                    daily = daily[["Time", "Power"]]
-                    daily['Time'] = pd.to_datetime(daily['Time'])
-                    daily = daily.groupby(pd.Grouper(key='Time', freq='1H'))['Power'].mean().reset_index()
-                    daily["Time"] = daily["Time"].dt.hour
-                    filename = "{}_dailyLoad.csv".format(building_data["building"].iloc[0])
-                    daily.to_csv(filename, index=False)
-                    day = current_day
-                    
+                building_name = building_data["building"].iloc[0]
+                meter_name = building_data["meter"].iloc[0]
+                powerA = building_data["powerA"].iloc[0]
+                powerB = building_data["powerB"].iloc[0]
+                powerC = building_data["powerC"].iloc[0]
+                pAid = pubs["{b}/{m}/powerA".format(b=building_name, m=meter_name)]
+                pBid = pubs["{b}/{m}/powerB".format(b=building_name, m=meter_name)]
+                pCid = pubs["{b}/{m}/powerC".format(b=building_name, m=meter_name)]
 
-        #This publishes nominal_voltage to substation which takes value of type double in gridlabd
+                power_pubvalues = [powerA, powerB, powerC]
+                power_pubid = [pAid, pBid, pCid]
 
-        h.helicsPublicationPublishComplex(psv, avgvoltage, 0)
-        print("sending averagevoltage for substation as positive_sequence_voltage {} at time {} to R1.glm".format(avgvoltage, timee))
-        h.helicsPublicationPublishComplex(cA, currentA, 0)
-        print("sending currentA {} at time {} to R1.glm".format(complex(currentA, 0), timee))
-        h.helicsPublicationPublishComplex(cB, currentB, -120.0)
-        print("sending currentB {} at time {} to R1.glm".format(complex(currentB, -120.0), timee))
-        h.helicsPublicationPublishComplex(cC, currentC, +120.0)
-        print("sending currentC {} at time {} to R1.glm".format(complex(currentC, +120.0), timee))
+                #This publishes load power consumption values which takes value of type complex in gridlabd
+                publish_power(power_pubid, power_pubvalues, timee)
+
+        #This is to make the time sleep for 20 seconds
         time.sleep(1)
 
-        #This subscribes to current_A value for node 125 which is obtained in complex value 
-        value1 = h.helicsInputGetComplex(subs["R1/n125/voltage_A"])
-        print("At {} time the voltage value for node n125 in complex is {}".format(timee,value1))
-        value2 = h.helicsInputGetDouble(subs["R1/m_t11/monthly_fee"])
-        print("At {} time the monthly fee for a meter is {}".format(timee,value2))
-        value3 = h.helicsInputGetDouble(subs["R1/m_t11/monthly_energy"])
-        print("At {} time the energy for meter is {}".format(timee,value3))
-        print("------------------------------------------------------------------------------------")
+        #outputs
+        #for node n125
+        output = get_subscriptions(subs, timee, output, "R1", "n125", "voltage_A", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "n125", "voltage_B", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "n125", "voltage_C", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "n125", "current_A", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "n125", "current_B", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "n125", "current_C", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "n125", "power_A", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "n125", "power_B", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "n125", "power_C", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "n125", "maximum_voltage_error", "double")
 
+        #for load l131
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "measured_voltage_A", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "measured_voltage_B", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "measured_voltage_C", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_power_A", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_power_B", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_power_C", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_impedance_A", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_impedance_B", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_impedance_C", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_current_A", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_current_B", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_current_C", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "power_pf_A", "double")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "power_pf_B", "double")
+        output = get_subscriptions(subs, timee, output, "R1", "l131", "power_pf_C", "double")
+
+        #for meter m_t11
+        output = get_subscriptions(subs, timee, output, "R1", "m_t11", "measured_real_energy", "double")
+        output = get_subscriptions(subs, timee, output, "R1", "m_t11", "measured_reactive_energy", "double")
+        output = get_subscriptions(subs, timee, output, "R1", "m_t11", "measured_power", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "m_t11", "measured_real_power", "double")
+        output = get_subscriptions(subs, timee, output, "R1", "m_t11", "measured_reactive_power", "double")
+        output = get_subscriptions(subs, timee, output, "R1", "m_t11", "measured_voltage_A", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "m_t11", "measured_voltage_B", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "m_t11", "measured_voltage_C", "complex")  
+        output = get_subscriptions(subs, timee, output, "R1", "m_t11", "measured_current_A", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "m_t11", "measured_current_B", "complex")
+        output = get_subscriptions(subs, timee, output, "R1", "m_t11", "measured_current_C", "complex")         
+        output = get_subscriptions(subs, timee, output, "R1", "m_t11", "monthly_bill", "double")
+        output = get_subscriptions(subs, timee, output, "R1", "m_t11", "monthly_energy", "double")
+        
+        #This subscribes to current_A value for node 125 which is obtained in complex value 
+        # value1 = h.helicsInputGetComplex(subs["R1/n125/voltage_A"])
+        # print("At {} time the voltage value for node n125 in complex is {}".format(timee,value1))
+        # input = {"time":timee, "building":"R1", "gld_object":"voltage_A", "value":value1}
+        # output.loc[len(output)] = input
+        
+        # value2 = h.helicsInputGetDouble(subs["R1/m_t11/monthly_fee"])
+        # print("At {} time the monthly fee for a meter is {}".format(timee,value2))
+        # input = {"time":timee, "building":"R1", "gld_object":"voltage_A", "value":value2}
+        # output.loc[len(output)] = input
+
+        # value3 = h.helicsInputGetDouble(subs["R1/m_t11/monthly_energy"])
+        # print("At {} time the energy for meter is {}".format(timee,value3))
+        # input = {"time":timee, "building":"R1", "gld_object":"voltage_A", "value":value2}
+        # output.loc[len(output)] = input
+
+    print(output)
+    output.to_csv("output.csv", index=False)
+
+def publish_voltage_current(pubid, pub_values, time):
+    #voltage
+    h.helicsPublicationPublishComplex(pubid[0], pub_values[0], 0)
+    # print("sending averagevoltage for substation as positive_sequence_voltage {} at time {} to R1.glm".format(pub_values, time))
+
+    #current
+    h.helicsPublicationPublishComplex(pubid[1], pub_values[1], 0)
+    # print("sending currentA {} at time {} to R1.glm".format(complex(pub_values[1], 0), time))
+    h.helicsPublicationPublishComplex(pubid[2], pub_values[2], -120.0)
+    # print("sending currentB {} at time {} to R1.glm".format(complex(pub_values[2], -120.0), time))
+    h.helicsPublicationPublishComplex(pubid[3], pub_values[3], +120.0)
+    # print("sending currentC {} at time {} to R1.glm".format(complex(pub_values[3], +120.0), time))
+
+
+def publish_power(pubids, values, time):
+    h.helicsPublicationPublishComplex(pubids[0], values[0].real, values[0].imag)
+    # print("sending powerA {} at time {} to R1.glm".format(values[0], time))
+    h.helicsPublicationPublishComplex(pubids[1], values[1].real, values[1].imag)
+    # print("sending powerB {} at time {} to R1.glm".format(values[0], time))
+    h.helicsPublicationPublishComplex(pubids[2], values[2].real, values[2].imag)
+    # print("sending powerC {} at time {} to R1.glm".format(values[0], time))
+
+def get_subscriptions(subs, timee, output, bldg, object, property, datatype):
+    if datatype == "complex":
+        v = h.helicsInputGetComplex(subs["{}/{}/{}".format(bldg, object, property)])
+        input = {"time":timee, "building":bldg, "gld_object":object, "property":property, "complex_value":v, "double_value":"N/A"}
+        # print("At {} time the {} value for {} in complex is {}".format(timee,property,object,v))
+    elif datatype == "double":
+        v = h.helicsInputGetDouble(subs["{}/{}/{}".format(bldg, object, property)])
+        input = {"time":timee, "building":bldg, "gld_object":object, "property":property, "double_value":v, "complex_value":"N/A"}
+        # print("At {} time the {} for a {} is {}".format(timee,property,object,v))
+    
+    output.loc[len(output)] = input
+    return output
 
 def main():
     fed = create_federate()
     # Register the publication #
     pubs = {}
     subs = {}
-    print("fed is set up.. going into publication..")
+    print("fed is set up.. going into publication")
     pubhub = PubHub(fed)
     r1 = {
         "NSU":["NSU01"], 
-        "NBN":["NBN01"] #continue ... adding NBN is giving error
+        "NBN":["NBN01"]
     }
     pubs = pubhub.manage_publication_register(r1, pubs)
     print("fed: Publication registered")
 
     subs = pubhub.manage_subscription_register(subs)
     print("fed: Subscriptions registered")
-
 
     #Extract the processed data which comes from dataset
     #We dont want to extract everything at once so passing this data object into assign_publication so that it extracts only the  data it needs at the moment
@@ -142,8 +226,7 @@ def main():
     h.helicsFederateEnterExecutingMode(fed)
     print("PI SENDER: Entering execution mode")
 
-
-    assign_publication(fed, r1 , pubs, data, subs)
+    assign_publication(fed, r1, pubs, data, subs)
 
     h.helicsFederateFinalize(fed)
     print("PI SENDER: Federate finalized")
