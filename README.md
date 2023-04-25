@@ -2,10 +2,10 @@
 Please contact for the dataset being used for all current version
 Once the dataset is available, please keep it in the folder called dataset and in each of its subfolder for their respective buildings 
 
-1.Requirements
-Python version 3 or above 
-Helics version 3.4 or above
-Gridlabd version 4.3 or above
+#Requirements
+1. Python version 3 or above 
+2. Helics version 3.4 or above
+3. Gridlabd version 4.3 or above
 
 #To run the simulation
 1. Open three different terminal windows with the path to the simulation folder
