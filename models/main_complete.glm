@@ -1217,3 +1217,115 @@ object load {
 }
 
 
+//*************************** Plant Operations Portion *****************************************
+object overhead_line{
+    name n00tonG;
+	phases ABCN;
+	from n00;
+	to nG;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nG;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nGtongh1;
+	phases ABCN;
+	from nG;
+	to ngh1;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name ngh1;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object switch {
+    name ngh1tongh2;
+    phases ABCN;
+    from ngh1;
+    to ngh2;
+    status CLOSED;
+}
+
+object node {
+    name ngh2;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name ngh2tongh2_1;
+    from ngh2;
+    to ngh2_1;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+    name ngh2_1;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object switch {
+    name ngh2_1tongh2_2;
+    phases ABCN;
+    from ngh2_1;
+    to ngh2_2;
+    status CLOSED;
+}
+
+object node {
+    name ngh2_2;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name ngh2_2tongh2_3;
+    from ngh2_2;
+    to ngh2_3;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+    name ngh2_3;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object transformer {
+    name ngh2_3tomgh2_4;
+    phases ABCN;
+    from ngh2_3;
+    to mgh2_4;
+    configuration t480_1000;
+}
+
+object meter {
+    name mgh2_4;
+    phases ABCN;
+	nominal_voltage 480.0;
+}
+
+object load {
+	name lgh2_4;
+	phases ABCN;
+    parent mgh2_4;
+    nominal_voltage 480;
+    constant_power_A 80.2727+47.1818j;
+    constant_power_B 60.2727+0.1818j;
+    constant_power_C 120.2727+0.1818j;
+}
