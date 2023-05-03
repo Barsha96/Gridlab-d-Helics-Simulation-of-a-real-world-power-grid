@@ -1,0 +1,1219 @@
+// 12.47 kV feeder
+
+clock {
+	timezone EST+5EDT;
+	starttime '2023-03-28 00:00:00 EST';
+};
+
+//********************************************* 
+module tape; 
+module powerflow { 
+    solver_method NR; 
+};
+
+//******************* Line Configurations *******************
+
+object line_configuration {
+    name line1_cfg;
+    conductor_A overhead_line_conductor_1;
+	conductor_B overhead_line_conductor_1;
+	conductor_C overhead_line_conductor_1;
+	conductor_N overhead_line_conductor_0;
+    spacing line_spacing_200; //because we do not have the information, trying to skip this portion
+};
+
+object line_spacing { //?
+	name line_spacing_200;
+	distance_AB 5.5;
+	distance_BC 4.5;
+	distance_AC 7.0;
+	distance_AN 5.656854;
+	distance_BN 4.272002;
+	distance_CN 5.0;
+	};
+
+object overhead_line_conductor {
+	name overhead_line_conductor_0;
+	diameter 0.027075; // for 2
+    resistance 0.012; //?
+};
+
+object overhead_line_conductor {
+	name overhead_line_conductor_1;
+	diameter 0.021466; // for 1/0 AWG //source: https://ripley-tools.com/utility-cable-sizing/#gsc.tab=0
+    resistance 0.103; // calculated from line power and voltage
+};
+
+//******************* Transformer Configurations *******************
+
+object transformer_configuration {
+    name t480_3-167;
+    connect_type WYE_WYE;
+    install_type PADMOUNT;
+    primary_voltage 12470;
+    secondary_voltage 480;
+    powerA_rating 167; 
+    powerB_rating 167; 
+    powerC_rating 167; //power rating of equipment is the highest power input allowed to flow through particular equipment
+    rated_winding_hot_spot_rise 65; //From the specification provided for a transformer
+    cooling_type UNKNOWN;
+    resistance 0.103; // calculated out of power, voltage and current 
+	reactance 0.5; // ieee_39_bus_technical_note.pdf 
+};
+
+object transformer_configuration {
+    name t208_3-167;
+    connect_type WYE_WYE;
+    install_type PADMOUNT;
+    primary_voltage 12470;
+    secondary_voltage 208;
+    powerA_rating 167; 
+    powerB_rating 167; 
+    powerC_rating 167; //power rating of equipment is the highest power input allowed to flow through particular equipment
+    rated_winding_hot_spot_rise 65; //From the specification provided for a transformer
+    cooling_type UNKNOWN;
+    resistance 0.103; // calculated out of power, voltage and current 
+	reactance 0.5; // ieee_39_bus_technical_note.pdf 
+};
+
+object transformer_configuration {
+    name t480_1000;
+    connect_type WYE_WYE;
+    install_type PADMOUNT;
+    primary_voltage 12470;
+    secondary_voltage 480;
+    power_rating 1000; //power rating of equipment is the highest power input allowed to flow through particular equipment
+    rated_winding_hot_spot_rise 65; //From the specification provided for a transformer
+    cooling_type UNKNOWN;
+    resistance 0.103; // calculated out of power, voltage and current 
+	reactance 0.5; // ieee_39_bus_technical_note.pdf 
+};
+
+object transformer_configuration {
+    name t4160_2500;
+    connect_type WYE_WYE;
+    install_type PADMOUNT;
+    primary_voltage 12470;
+    secondary_voltage 4160.0;
+    power_rating 2500; //power rating of equipment is the highest power input allowed to flow through particular equipment
+    rated_winding_hot_spot_rise 65; //From the specification provided for a transformer
+    cooling_type UNKNOWN;
+    resistance 0.103; // calculated out of power, voltage and current 
+	reactance 0.5; // ieee_39_bus_technical_note.pdf 
+};
+
+object transformer_configuration {
+    name t480_1500;
+    connect_type WYE_WYE;
+    install_type PADMOUNT;
+    primary_voltage 12470;
+    secondary_voltage 480;
+    power_rating 1500; //power rating of equipment is the highest power input allowed to flow through particular equipment
+    rated_winding_hot_spot_rise 65; //From the specification provided for a transformer
+    cooling_type UNKNOWN;
+    resistance 0.103; // calculated out of power, voltage and current 
+	reactance 0.5; // ieee_39_bus_technical_note.pdf 
+};
+
+//******************** data dumps ****************************
+object voltdump {
+    filename mh_vo.csv;
+    mode POLAR;
+}
+
+object currdump {
+    filename mh_co.csv;
+    mode POLAR;
+}
+
+
+object fault_check {
+    name faultcheck;
+    check_mode ALL;
+    output_filename outage_check.txt;
+}
+
+//******************* MH building portion *****************************************************
+
+object substation {
+	name source;
+	phases ABCN;
+	reference_phase PHASE_A;
+    positive_sequence_voltage 12470.562+0.0j;
+    nominal_voltage 12470.00;
+    base_power 1500;
+    power_convergence_value 0.1;
+    bustype SWING;
+	};
+
+object overhead_line{
+    name sourceton00;
+	phases ABCN;
+	from source;
+	to n00;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+	name n00;
+	phases ABCN;
+	nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name n00tonB;
+	phases ABCN;
+	from n00;
+	to nB;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+	name nB;
+	phases ABCN;
+	nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nBtonab7;
+	phases ABCN;
+	from nB;
+	to nab7;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+	name nab7;
+	phases ABCN;
+	nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nab7tonab8;
+	phases ABCN;
+	from nab7;
+	to nab8;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab8;
+    phases ABCN;
+	nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nab8tonab9;
+	phases ABCN;
+	from nab8;
+	to nab9;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab9;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nab9tonab9_1;
+	phases ABCN;
+	from nab9;
+	to nab9_1;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab9_1;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object switch {
+    name nab9_1tonab9_2;
+    phases ABCN;
+    from nab9_1;
+    to nab9_2;
+    status CLOSED;
+}
+
+object node {
+    name nab9_2;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name nab9_2tonab9_3;
+    from nab9_2;
+    to nab9_3;
+    current_limit 120.28;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+    name nab9_3;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object switch {
+    name nab9_3tonab9_4;
+    phases ABCN;
+    from nab9_3;
+    to nab9_4;
+    status CLOSED;
+}
+
+object node {
+    name nab9_4;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object transformer {
+    name nab9_4tomab9_5;
+    phases ABCN;
+    from nab9_4;
+    to mab9_5;
+    configuration t480_3-167;
+}
+
+object meter {
+    name mab9_5;
+    phases ABCN;
+	nominal_voltage 480.0;
+}
+
+object load {
+	name lab9_5;
+	phases ABCN;
+    parent mab9_5;
+    nominal_voltage 480;
+    constant_power_A 80.2727+47.1818j;
+    constant_power_B 60.2727+0.1818j;
+    constant_power_C 169.2727+0.1818j;
+}
+
+//*****************************  MH Meter 2  *******************************
+
+object overhead_line{
+    name nab9_2tonab9_6;
+	phases ABCN;
+	from nab9_2;
+	to nab9_6;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab9_6;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name nab9_6tonab9_7;
+    from nab9_6;
+    to nab9_7;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+    name nab9_7;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object switch {
+    name nab9_7tonab9_8;
+    phases ABCN;
+    from nab9_7;
+    to nab9_8;
+    status CLOSED;
+}
+
+object node {
+    name nab9_8;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object transformer {
+    name nab9_8tomab9_9;
+    phases ABCN;
+    from nab9_8;
+    to mab9_9;
+    configuration t208_3-167;
+}
+
+object meter {
+    name mab9_9;
+    phases ABCN;
+	nominal_voltage 208.0;
+}
+
+object load {
+	name lab9_9;
+	phases ABCN;
+    parent mab9_9;
+    nominal_voltage 208;
+    constant_power_A 80.2727+47.1818j;
+    constant_power_B 60.2727+0.1818j;
+    constant_power_C 120.2727+0.1818j;
+}
+
+//*****************************  Stranahan Portion  ******************************************
+
+object overhead_line{
+    name nab9tonab9_10;
+	phases ABCN;
+	from nab9;
+	to nab9_10;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab9_10;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object switch {
+    name nab9_10tonab9_11;
+    phases ABCN;
+    from nab9_10;
+    to nab9_11;
+    status CLOSED;
+}
+
+object node {
+    name nab9_11;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nab9_11tonab9_12;
+	phases ABCN;
+	from nab9_11;
+	to nab9_12;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab9_12;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nab9_12tonab9_13;
+	phases ABCN;
+	from nab9_12;
+	to nab9_13;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab9_13;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nab9_13tonab9_14;
+	phases ABCN;
+	from nab9_13;
+	to nab9_14;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab9_14;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object switch {
+    name nab9_14tonab9_15;
+    phases ABCN;
+    from nab9_14;
+    to nab9_15;
+    status CLOSED;
+}
+
+object node {
+    name nab9_15;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name nab9_15tonab9_16;
+    from nab9_15;
+    to nab9_16;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+    name nab9_16;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object transformer {
+    name nab9_16tomab9_17;
+    phases ABCN;
+    from nab9_16;
+    to mab9_17;
+    configuration t208_3-167;
+}
+
+object meter {
+    name mab9_17;
+    phases ABCN;
+	nominal_voltage 208.0;
+}
+
+object load {
+	name lab9_17;
+	phases ABCN;
+    parent mab9_9;
+    nominal_voltage 208;
+    constant_power_A 80.2727+47.1818j;
+    constant_power_B 60.2727+0.1818j;
+    constant_power_C 120.2727+0.1818j;
+}
+
+//********************** Strannahan Meter2 ************************
+
+object overhead_line{
+    name nab9_14tonab9_18;
+	phases ABCN;
+	from nab9_14;
+	to nab9_18;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab9_18;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object switch {
+    name nab9_18tonab9_19;
+    phases ABCN;
+    from nab9_18;
+    to nab9_19;
+    status CLOSED;
+}
+
+object node {
+    name nab9_19;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name nab9_19tonab9_20;
+    from nab9_19;
+    to nab9_20;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+    name nab9_20;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object transformer {
+    name nab9_20tomab9_21;
+    phases ABCN;
+    from nab9_20;
+    to mab9_21;
+    configuration t480_3-167;
+}
+
+object meter {
+    name mab9_21;
+    phases ABCN;
+	nominal_voltage 208.0;
+}
+
+object load {
+	name lab9_21;
+	phases ABCN;
+    parent mab9_21;
+    nominal_voltage 208;
+    constant_power_A 80.2727+47.1818j;
+    constant_power_B 60.2727+0.1818j;
+    constant_power_C 120.2727+0.1818j;
+}
+
+//************************* Field House Portion *******************************************************
+
+object overhead_line{
+    name n00tonA;
+	phases ABCN;
+	from n00;
+	to nA;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nA;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nAtonab1;
+	phases ABCN;
+	from nA;
+	to nab1;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab1;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nab1onab2;
+	phases ABCN;
+	from nab1;
+	to nab2;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab2;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nab2tonab3;
+	phases ABCN;
+	from nab2;
+	to nab3;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab3;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nab3tonab4;
+	phases ABCN;
+	from nab3;
+	to nab4;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab4;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nab4tonab4_1;
+	phases ABCN;
+	from nab4;
+	to nab4_1;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab4_1;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object switch {
+    name nab4_1tonab4_2;
+    phases ABCN;
+    from nab4_1;
+    to nab4_2;
+    status CLOSED;
+}
+
+object node {
+    name nab4_2;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name nab4_2tonab4_3;
+    from nab4_2;
+    to nab4_3;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+    name nab4_3;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object transformer {
+    name nab4_3tomab4_4;
+    phases ABCN;
+    from nab4_3;
+    to mab4_4;
+    configuration t480_1000;
+}
+
+object meter {
+    name mab4_4;
+    phases ABCN;
+	nominal_voltage 480.0;
+}
+
+object load {
+	name lab4_4;
+	phases ABCN;
+    parent mab4_4;
+    nominal_voltage 480;
+    constant_power_A 80.2727+47.1818j;
+    constant_power_B 60.2727+0.1818j;
+    constant_power_C 120.2727+0.1818j;
+}
+
+//***************** field House Meter 2 ********************
+
+object overhead_line{
+    name nab4_1tonab4_5;
+	phases ABCN;
+	from nab4_1;
+	to nab4_5;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab4_5;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object switch {
+    name nab4_5tonab4_6;
+    phases ABCN;
+    from nab4_5;
+    to nab4_6;
+    status CLOSED;
+}
+
+object node {
+    name nab4_6;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name nab4_6tonab4_7;
+    from nab4_6;
+    to nab4_7;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+    name nab4_7;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object transformer {
+    name nab4_7tomab4_8;
+    phases ABCN;
+    from nab4_7;
+    to mab4_8;
+    configuration t4160_2500;
+}
+
+object meter {
+    name mab4_8;
+    phases ABCN;
+	nominal_voltage 4160.0;
+}
+
+object load {
+	name lab4_8;
+	phases ABCN;
+    parent mab4_8;
+    nominal_voltage 4160.0;
+    constant_power_A 80.2727+47.1818j;
+    constant_power_B 60.2727+0.1818j;
+    constant_power_C 120.2727+0.1818j;
+}
+
+//******************* Field House Meter 3 Portion ***********
+
+object overhead_line{
+    name nab4_5tonab4_9;
+	phases ABCN;
+	from nab4_5;
+	to nab4_9;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab4_9;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object switch {
+    name nab4_9tonab4_10;
+    phases ABCN;
+    from nab4_9;
+    to nab4_10;
+    status CLOSED;
+}
+
+object node {
+    name nab4_10;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name nab4_10tonab4_11;
+    from nab4_10;
+    to nab4_11;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+    name nab4_11;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object transformer {
+    name nab4_11tomab4_12;
+    phases ABCN;
+    from nab4_11;
+    to mab4_12;
+    configuration t480_1500;
+}
+
+object meter {
+    name mab4_12;
+    phases ABCN;
+	nominal_voltage 480.0;
+}
+
+object load {
+	name lab4_12;
+	phases ABCN;
+    parent mab4_12;
+    nominal_voltage 480;
+    constant_power_A 80.2727+47.1818j;
+    constant_power_B 60.2727+0.1818j;
+    constant_power_C 120.2727+0.1818j;
+}
+
+//******************* Field House Meter 4 Portion ***********
+
+object overhead_line{
+    name nab4_9tonab4_13;
+	phases ABCN;
+	from nab4_9;
+	to nab4_13;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nab4_13;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object switch {
+    name nab4_13tonab4_14;
+    phases ABCN;
+    from nab4_13;
+    to nab4_14;
+    status CLOSED;
+}
+
+object node {
+    name nab4_14;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name nab4_14tonab4_15;
+    from nab4_14;
+    to nab4_15;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+    name nab4_15;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object transformer {
+    name nab4_15tomab4_16;
+    phases ABCN;
+    from nab4_15;
+    to mab4_16;
+    configuration t480_1500;
+}
+
+object meter {
+    name mab4_16;
+    phases ABCN;
+	nominal_voltage 480.0;
+}
+
+object load {
+	name lab4_16;
+	phases ABCN;
+    parent mab4_16;
+    nominal_voltage 480;
+    constant_power_A 80.2727+47.1818j;
+    constant_power_B 60.2727+0.1818j;
+    constant_power_C 120.2727+0.1818j;
+}
+
+//********************************* EF LOOP *************************************************
+
+object overhead_line{
+    name n00tonF;
+	phases ABCN;
+	from n00;
+	to nF;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nF;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nFtonef9;
+	phases ABCN;
+	from nA;
+	to nef9;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nef9;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nef9tonef8;
+	phases ABCN;
+	from nef9;
+	to nef8;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+    name nef8;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object switch {
+    name nef8tonef8_1;
+    phases ABCN;
+    from nef8;
+    to nef8_1;
+    status CLOSED;
+}
+
+object node {
+    name nef8_1;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+
+//********************************* R1 building portion ***********************
+
+object fuse {
+    phases ABCN;
+    name nef8_1tonef8_2;
+    from nef8_1;
+    to nef8_2;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+	name nef8_2;
+	phases ABCN;
+	nominal_voltage 12470.0;
+}
+
+object overhead_line{
+    name nef8_2tonef8_3;
+	phases ABCN;
+	from nef8_2;
+	to nef8_3;
+    length 2280;
+	configuration line1_cfg;
+}
+
+object node {
+	name nef8_3;
+	phases ABCN;
+	nominal_voltage 12470.0;
+}
+
+object switch {
+    name nef8_3tonef8_4;
+    phases ABCN;
+    from nef8_3;
+    to nef8_4;
+    status CLOSED;
+}
+
+object node {
+	name nef8_4;
+	phases ABCN;
+	nominal_voltage 12470.0;
+	}
+
+object fuse {
+    phases ABCN;
+    name nef8_4tonef8_5;
+    from nef8_4;
+    to nef8_5;
+    current_limit 120.28; //1500KVA power on 12.47 rated 133% limit
+    repair_dist_type NONE;
+    //status CLOSED;
+}
+
+object node {
+	name nef8_5;
+	phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name nef8_5tonef8_6;
+    from nef8_5;
+    to nef8_6;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+	name nef8_6;
+	phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object transformer {
+    name nef8_6tonef8_7;
+    phases ABCN;
+    from nef8_6;
+    to nef8_7;
+    configuration t480_1500;
+}
+
+object node {
+	name nef8_7;
+	phases ABCN;
+    nominal_voltage 480.0;
+	}
+
+object fuse {
+    name nef8_7tomef8_8;
+    phases ABCN;
+    from nef8_7;
+    to mef8_8;
+    repair_dist_type NONE;
+}
+
+object meter {
+    name mef8_8;
+    phases ABCN;
+	nominal_voltage 480.0;
+}
+
+object load {
+	name lef8_8;
+	phases ABCN;
+    parent mef8_8;
+    nominal_voltage 480;
+	constant_power_A 1500;
+    constant_impedance_B 221.915014+104.430595j;
+	constant_power_B 1500;
+	constant_power_C 1500;
+}
+
+//************************************ Nitchke Portion ****************************************
+
+object switch {
+    name nef8_3tonef8_9;
+    phases ABCN;
+    from nef8_3;
+    to nef8_9;
+    status CLOSED;
+}
+
+object node {
+    name nef8_9;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name nef8_9tonef8_10;
+    from nef8_9;
+    to nef8_10;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+    name nef8_10;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object transformer {
+    name nef8_10tonef8_11;
+    phases ABCN;
+    from nef8_10;
+    to mef8_11;
+    configuration t480_1000;
+}
+
+object meter {
+    name mef8_11;
+    phases ABCN;
+	nominal_voltage 480.0;
+}
+
+object load {
+	name lef8_11;
+	phases ABCN;
+    parent mef8_11;
+    nominal_voltage 480;
+    constant_power_A 80.2727+47.1818j;
+    constant_power_B 60.2727+0.1818j;
+    constant_power_C 120.2727+0.1818j;
+}
+
+//*************************** Nitchke Meter 2 Portion *****************************************
+
+object switch {
+    name nef8_9tonef8_12;
+    phases ABCN;
+    from nef8_9;
+    to nef8_12;
+    status CLOSED;
+}
+
+object node {
+    name nef8_12;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object fuse {
+    phases ABCN;
+    name nef8_12tonef8_13;
+    from nef8_12;
+    to nef8_13;
+    repair_dist_type NONE;
+    status CLOSED;
+}
+
+object node {
+    name nef8_13;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
+object transformer {
+    name nef8_13tomef8_14;
+    phases ABCN;
+    from nef8_13;
+    to mef8_14;
+    configuration t480_1000;
+}
+
+object meter {
+    name mef8_14;
+    phases ABCN;
+	nominal_voltage 480.0;
+}
+
+object load {
+	name lef8_14;
+	phases ABCN;
+    parent mef8_14;
+    nominal_voltage 480;
+    constant_power_A 80.2727+47.1818j;
+    constant_power_B 60.2727+0.1818j;
+    constant_power_C 120.2727+0.1818j;
+}
+
+

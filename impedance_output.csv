@@ -4,11 +4,11 @@
 	<Time>1999-12-31 19:00:00 EST</Time>
 	<fuse>
 		<name>f27</name>
-		<id>fuse:12</id>
+		<id>fuse:13</id>
 		<from_node>node:n127</from_node>
 		<to_node>node:n128</to_node>
-		<from_voltage>12470.562000</from_voltage>
-		<to_voltage>12470.562000</to_voltage>
+		<from_voltage>12470.000000</from_voltage>
+		<to_voltage>12470.000000</to_voltage>
 		<phases>ABCN</phases>
 		<a_matrix>
 			<a11>+1.000000000000000+0.000000000000000j</a11>
@@ -79,11 +79,11 @@
 	</fuse>
 	<fuse>
 		<name>f28</name>
-		<id>fuse:14</id>
+		<id>fuse:15</id>
 		<from_node>node:n128</from_node>
 		<to_node>node:n129</to_node>
-		<from_voltage>12470.562000</from_voltage>
-		<to_voltage>12470.562000</to_voltage>
+		<from_voltage>12470.000000</from_voltage>
+		<to_voltage>12470.000000</to_voltage>
 		<phases>ABCN</phases>
 		<a_matrix>
 			<a11>+1.000000000000000+0.000000000000000j</a11>
@@ -153,12 +153,12 @@
 		</B_matrix>
 	</fuse>
 	<fuse>
-		<name>f_n130n131</name>
-		<id>fuse:19</id>
+		<name>f_n130tom_t11</name>
+		<id>fuse:20</id>
 		<from_node>node:n130</from_node>
 		<to_node>meter:m_t11</to_node>
-		<from_voltage>480.021633</from_voltage>
-		<to_voltage>480.021633</to_voltage>
+		<from_voltage>480.000000</from_voltage>
+		<to_voltage>480.000000</to_voltage>
 		<phases>ABCN</phases>
 		<a_matrix>
 			<a11>+1.000000000000000+0.000000000000000j</a11>
@@ -229,11 +229,11 @@
 	</fuse>
 	<overhead_line>
 		<name>sourceton111</name>
-		<id>overhead_line:2</id>
+		<id>overhead_line:3</id>
 		<from_node>substation:source</from_node>
 		<to_node>node:n111</to_node>
-		<from_voltage>12470.562000</from_voltage>
-		<to_voltage>12470.562000</to_voltage>
+		<from_voltage>12470.000000</from_voltage>
+		<to_voltage>12470.000000</to_voltage>
 		<phases>ABCN</phases>
 		<length>2280.000000000000000</length>
 		<a_matrix>
@@ -305,11 +305,11 @@
 	</overhead_line>
 	<overhead_line>
 		<name>n111ton125</name>
-		<id>overhead_line:4</id>
+		<id>overhead_line:5</id>
 		<from_node>node:n111</from_node>
 		<to_node>node:n125</to_node>
-		<from_voltage>12470.562000</from_voltage>
-		<to_voltage>12470.562000</to_voltage>
+		<from_voltage>12470.000000</from_voltage>
+		<to_voltage>12470.000000</to_voltage>
 		<phases>ABCN</phases>
 		<length>2280.000000000000000</length>
 		<a_matrix>
@@ -381,11 +381,11 @@
 	</overhead_line>
 	<switch>
 		<name>s36</name>
-		<id>switch:10</id>
+		<id>switch:11</id>
 		<from_node>node:n125</from_node>
 		<to_node>node:n127</to_node>
-		<from_voltage>12470.562000</from_voltage>
-		<to_voltage>12470.562000</to_voltage>
+		<from_voltage>12470.000000</from_voltage>
+		<to_voltage>12470.000000</to_voltage>
 		<phases>ABCN</phases>
 		<a_matrix>
 			<a11>+1.000000000000000+0.000000000000000j</a11>
@@ -456,11 +456,11 @@
 	</switch>
 	<transformer>
 		<name>t11</name>
-		<id>transformer:16</id>
+		<id>transformer:17</id>
 		<from_node>node:n129</from_node>
 		<to_node>node:n130</to_node>
-		<from_voltage>12470.562000</from_voltage>
-		<to_voltage>480.021633</to_voltage>
+		<from_voltage>12470.000000</from_voltage>
+		<to_voltage>480.000000</to_voltage>
 		<xfmr_config>1</xfmr_config>
 		<phases>ABCN</phases>
 		<power_rating>1500.000000</power_rating>

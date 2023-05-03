@@ -391,6 +391,16 @@
 				"object" : "m_t11",
 				"property" : "monthly_bill"
 			}
+		 },
+		 {
+			"global" : false,
+			"key" : "s_01/measured_current_A",
+			"type" : "complex",
+			"unit" : "Amp",
+			"info" : {
+				"object" : "s_01",
+				"property" : "measured_current_A"
+			}
 		 }
 		 
 	],

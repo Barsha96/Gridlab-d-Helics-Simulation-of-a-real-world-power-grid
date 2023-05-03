@@ -12,6 +12,7 @@ clock {
 
 //********************************************* 
 module tape; 
+module market;
 module powerflow { 
     solver_method NR; 
 };
@@ -30,12 +31,18 @@ object substation {
 	name source;
 	phases ABCN;
 	reference_phase PHASE_A;
-    positive_sequence_voltage 12470.562+0.0j;
     nominal_voltage 12470.00;
     base_power 1500;
     power_convergence_value 0.1;
     bustype SWING;
-	} 
+} 
+
+object meter{
+    name s_01;
+    phases ABCN;
+	nominal_voltage 12470.0;
+    parent source;
+}
 
 object overhead_line{
 	name sourceton111;
@@ -57,7 +64,7 @@ object overhead_line{
 	phases ABCN;
 	from n111;
 	to n125;
-    length 2280;//?
+    length 2280;
 	configuration line1_cfg;
 	}
 
@@ -75,8 +82,8 @@ object line_spacing { //?
 	distance_AB 5.5;
 	distance_BC 4.5;
 	distance_AC 7.0;
-	distance_AN 5.656854;
-	distance_BN 4.272002;
+	distance_AN 5.6;
+	distance_BN 4.2;
 	distance_CN 5.0;
 	}
 
@@ -122,7 +129,7 @@ object fuse {
     to n128;
     current_limit 120.28; //1500KVA power on 12.47 rated 133% limit
     repair_dist_type NONE;
-    //status CLOSED;
+    status CLOSED;
 }
 
 object node {
@@ -175,37 +182,29 @@ object node {
 	}
 
 object fuse {
-    name f_n130n131;
+    name f_n130tom_t11;
     phases ABCN;
     from n130;
     to m_t11;
     current_limit 4.62; //low current limit because of it being on the other side of transformer
     repair_dist_type NONE;
+    status CLOSED;
 }
 
 object meter {
     name m_t11;
     phases ABCN;
 	nominal_voltage 480.0;
-    //object player {
-    //    file "/data/nbn_measured_real_power.player";
-    //    property measured_real_power;
-    //};
+    bill_day 1;
 }
 
 
-object recorder {
-    file "r1_real_power.csv";
-    parent m_t11;
-    interval 0.33;
-    property measured_voltage_A, measured_power_A, measured_current_A;
-};
 
 object load {
 	name l131;
 	phases ABCN;
-    parent m_t11;
     nominal_voltage 480;
+    parent m_t11;
 }
 
 object voltdump {

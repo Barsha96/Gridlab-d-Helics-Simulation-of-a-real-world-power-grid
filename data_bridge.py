@@ -11,6 +11,7 @@ class DataBridge:
         meter = data["meter_no"].iloc[0]
         bldg = data["building_name"].iloc[0]
         newRow = {"time":timestamp, "building":bldg, "meter":meter}
+    
 
         if bldg == "NSU":
             #calculation of average voltage
@@ -18,6 +19,8 @@ class DataBridge:
             vBN = data.loc[data["topic_name"] == "VoltagePhaseBtoNeutral", "value_string"].iloc[0]
             vCN = data.loc[data["topic_name"] == "VoltagePhaseCtoNeutral", "value_string"].iloc[0]
             #average voltage 
+
+            #calculate positive sequence voltage
             newRow["avgVoltage"] = (vAN + vBN + vCN)/3 * m.sqrt(3)
             
             #calculation of current values for substation
@@ -29,11 +32,11 @@ class DataBridge:
             realPowerA = data.loc[data["topic_name"] == "RealPowerPhaseA", "value_string"].iloc[0]
             realPowerB = data.loc[data["topic_name"] == "RealPowerPhaseB", "value_string"].iloc[0]
             realPowerC = data.loc[data["topic_name"] == "RealPowerPhaseC", "value_string"].iloc[0]
-
+            
             reactivePowerA = data.loc[data["topic_name"] == "ReactivePowerPhaseA", "value_string"].iloc[0]
             reactivePowerB = data.loc[data["topic_name"] == "ReactivePowerPhaseB", "value_string"].iloc[0]
             reactivePowerC = data.loc[data["topic_name"] == "ReactivePowerPhaseC", "value_string"].iloc[0]
-
+            
             newRow["powerA"] = complex(realPowerA, reactivePowerA)
             newRow["powerB"] = complex(realPowerB, reactivePowerB)
             newRow["powerC"] = complex(realPowerC, reactivePowerC)
@@ -58,7 +61,7 @@ class DataBridge:
         return inst
 
     def collector(self, building, meter):
-        path = "../dataset/{bldg}/{metername}_resample_5M10D.csv".format( bldg = building, metername = meter)
+        path = "../../dataset/{bldg}/{metername}_resample_5M.csv".format( bldg = building, metername = meter)
         data = pd.read_csv(path)
         reqdata = self.requiredData(data)
         return reqdata    

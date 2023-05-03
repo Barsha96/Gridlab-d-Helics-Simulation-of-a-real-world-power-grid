@@ -26,12 +26,18 @@ push the files to github
 4/23/23
 keep generating the output from virtualbox
 changing the interval to 5 minues to help process faster
-Trying to install helics/gridlabd in workstation
-
-
+Trying to install helics/gridlabd in workstation - gridlabd is not yet supported 
 Data visualization and correlation analysis 
-
 try to apply correlation on the data generated from r1 building
-work on the seminar report - deadline April 28
+
+4/28/23
+So looks like the meter object must be the parent for the load to be able to correctly genertae the data
+But the current although it isnt zero, it is still low - why?
+Working with IT help to resolve the windows gridlabd error
+Read a review paper 
+So the simulation is now running in the large data as well 
+
+
+
 
 

@@ -2,7 +2,6 @@
 
 clock {
 	timezone EST+5EDT;
-	stoptime '2022-12-21 17:55:00 EST';
 };
 
 #set minimum_timestep=1;
@@ -20,6 +19,11 @@ module powerflow {
 module market;
 module connection;
 
+//object helics_msg {
+//     name R1helicsconfig;
+//     configure r1config.json;
+//}
+
 //******************* R1 building portion *******************
 
 object substation {
@@ -28,10 +32,10 @@ object substation {
 	reference_phase PHASE_A;
     positive_sequence_voltage 12470.562+0.0j;
     nominal_voltage 12470.00;
-    base_power 2000;
+    base_power 1500;
     power_convergence_value 0.1;
     bustype SWING;
-	} 
+	}
 
 object overhead_line{
 	name sourceton111;
@@ -171,10 +175,10 @@ object node {
 	}
 
 object fuse {
-    name f_n130n131;
+    name f_n130tol131;
     phases ABCN;
     from n130;
-    to m_t11;
+    to l131;
     current_limit 4.62; //low current limit because of it being on the other side of transformer
     repair_dist_type NONE;
 }
@@ -183,32 +187,21 @@ object meter {
     name m_t11;
     phases ABCN;
 	nominal_voltage 480.0;
+    parent l131;
+
     //object player {
     //    file "/data/nbn_measured_real_power.player";
     //    property measured_real_power;
     //};
 }
 
-
-object recorder {
-    file "r1_real_power.csv";
-    parent m_t11;
-    interval 0.33;
-    property measured_voltage_A, measured_power_A, measured_current_A;
-};
-
 object load {
 	name l131;
 	phases ABCN;
-    parent m_t11;
     nominal_voltage 480;
-	constant_power_A 71+44j;
-	constant_power_B 68+46j;
-	constant_power_C 206+137j;
-    base_power_A 100;
-    base_power_B 200;
-    base_power_C 500;
-
+    constant_power_A 80.2727+47.1818j;
+    constant_power_B 90.2727+0.1818j;
+    constant_power_C 269.2727+0.1818j;
 }
 
 object voltdump {

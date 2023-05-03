@@ -98,7 +98,6 @@ class PubHub:
     def register_subscription(self, subs):
         
         # config_file = "r1config.json"
-
         #for node 125
         subid1 = h.helicsFederateRegisterSubscription(self.fed, "R1/n125/voltage_A", "")
         subs["R1/n125/voltage_A"] = subid1
@@ -217,6 +216,9 @@ class PubHub:
 
         subid37 = h.helicsFederateRegisterSubscription(self.fed, "R1/m_t11/monthly_energy", "")
         subs["R1/m_t11/monthly_energy"] = subid37
+
+        subid38 = h.helicsFederateRegisterSubscription(self.fed, "R1/s_01/measured_current_A", "")
+        subs["R1/s_01/measured_current_A"] = subid38
 
         return subs
 
