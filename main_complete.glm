@@ -11,6 +11,14 @@ module powerflow {
     solver_method NR; 
 };
 
+module market;
+module connection;
+
+object helics_msg {
+     name R1helicsconfig;
+     configure main_complete.json;
+}
+
 //******************* Line Configurations *******************
 
 object line_configuration {
@@ -170,15 +178,10 @@ object recloser{
     max_number_of_tries 3;
 }
 
-object substation {
+object node {
 	name nB;
 	phases ABCN;
-	reference_phase PHASE_A;
-    positive_sequence_voltage 12470.562+0.0j;
     nominal_voltage 12470.00;
-    base_power 1500;
-    power_convergence_value 0.1;
-    bustype SWING;
 }
 
 object overhead_line{
@@ -589,15 +592,10 @@ object overhead_line{
 	configuration line1_cfg;
 }
 
-object substation {
+object node {
 	name nA;
 	phases ABCN;
-	reference_phase PHASE_A;
-    positive_sequence_voltage 12470.562+0.0j;
     nominal_voltage 12470.00;
-    base_power 1500;
-    power_convergence_value 0.1;
-    bustype SWING;
 }
 
 object recloser{
@@ -949,15 +947,11 @@ object overhead_line{
 	configuration line1_cfg;
 }
 
-object substation {
+object node {
 	name nF;
 	phases ABCN;
-	reference_phase PHASE_A;
-    positive_sequence_voltage 12470.562+0.0j;
     nominal_voltage 12470.00;
-    base_power 1500;
-    power_convergence_value 0.1;
-    bustype SWING;
+
 }
 
 object recloser{
@@ -1242,15 +1236,11 @@ object overhead_line{
 	configuration line1_cfg;
 }
 
-object substation {
+object node {
 	name nG;
 	phases ABCN;
-	reference_phase PHASE_A;
-    positive_sequence_voltage 12470.562+0.0j;
     nominal_voltage 12470.00;
-    base_power 1500;
-    power_convergence_value 0.1;
-    bustype SWING;
+
 }
 
 object recloser{

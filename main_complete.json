@@ -1,0 +1,568 @@
+{
+	"name" : "R1",
+	"period" : 300,
+	"publications" : [
+		 {
+			"global" : false,
+			"key" : "nef8_2/voltage_A",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "nef8_2",
+				"property" : "voltage_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "nef8_2/voltage_B",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "nef8_2",
+				"property" : "voltage_B"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "nef8_2/voltage_C",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "nef8_2",
+				"property" : "voltage_C"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "nef8_2/current_A",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "nef8_2",
+				"property" : "current_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "nef8_2/current_B",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "nef8_2",
+				"property" : "current_B"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "nef8_2/current_C",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "nef8_2",
+				"property" : "current_C"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "nef8_2/power_A",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "nef8_2",
+				"property" : "power_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "nef8_2/power_B",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "nef8_2",
+				"property" : "power_B"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "nef8_2/power_C",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "nef8_2",
+				"property" : "power_C"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "nef8_2/maximum_voltage_error",
+			"type" : "double",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "nef8_2",
+				"property" : "maximum_voltage_error"
+			}
+		 },
+
+		{
+			"global" : false,
+			"key" : "lef8_8/measured_voltage_A",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "measured_voltage_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/measured_voltage_B",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "measured_voltage_B"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/measured_voltage_C",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "measured_voltage_C"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/constant_power_A",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "constant_power_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/constant_power_B",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "constant_power_B"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/constant_power_C",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "constant_power_C"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/constant_impedance_A",
+			"type" : "complex",
+			"unit" : "Ohms",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "constant_impedance_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/constant_impedance_B",
+			"type" : "complex",
+			"unit" : "Ohms",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "constant_impedance_B"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/constant_impedance_C",
+			"type" : "complex",
+			"unit" : "Ohms",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "constant_impedance_C"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/constant_current_A",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "constant_current_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/constant_current_B",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "constant_current_B"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/constant_current_C",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "constant_current_C"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/power_pf_A",
+			"type" : "double",
+			"unit" : "pu",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "power_pf_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/power_pf_B",
+			"type" : "double",
+			"unit" : "pu",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "power_pf_B"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "lef8_8/power_pf_C",
+			"type" : "double",
+			"unit" : "pu",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "power_pf_C"
+			}
+		 },
+		 
+
+
+
+
+
+		 {
+			"global" : false,
+			"key" : "mef8_8/measured_real_energy",
+			"type" : "double",
+			"unit" : "Wh",
+			"info" : {
+				"object" : "mef8_8",
+				"property" : "measured_real_energy"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "mef8_8/measured_reactive_energy",
+			"type" : "double",
+			"unit" : "Vah",
+			"info" : {
+				"object" : "mef8_8",
+				"property" : "measured_reactive_energy"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "mef8_8/measured_power",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "mef8_8",
+				"property" : "measured_power"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "mef8_8/measured_real_power",
+			"type" : "double",
+			"unit" : "Watts",
+			"info" : {
+				"object" : "mef8_8",
+				"property" : "measured_real_power"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "mef8_8/measured_reactive_power",
+			"type" : "double",
+			"unit" : "VAr",
+			"info" : {
+				"object" : "mef8_8",
+				"property" : "measured_reactive_power"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "mef8_8/measured_voltage_A",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "mef8_8",
+				"property" : "measured_voltage_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "mef8_8/measured_voltage_B",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "mef8_8",
+				"property" : "measured_voltage_B"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "mef8_8/measured_voltage_C",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "mef8_8",
+				"property" : "measured_voltage_C"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "mef8_8/measured_current_A",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "mef8_8",
+				"property" : "measured_current_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "mef8_8/measured_current_B",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "mef8_8",
+				"property" : "measured_current_B"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "mef8_8/measured_current_C",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "mef8_8",
+				"property" : "measured_current_C"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "mef8_8/monthly_energy",
+			"type" : "double",
+			"unit" : "KWh",
+			"info" : {
+				"object" : "mef8_8",
+				"property" : "monthly_energy"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "mef8_8/monthly_bill",
+			"type" : "double",
+			"unit" : "$",
+			"info" : {
+				"object" : "mef8_8",
+				"property" : "monthly_bill"
+			}
+		 }
+		 
+	],
+	"subscriptions" : [
+		 {
+			"key" : "NSU/NSU09/positive_sequence_voltage",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "source",
+				"property" : "positive_sequence_voltage"
+			}
+		 },
+		  {
+			"key" : "NSU/NSU09/current_A",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "source",
+				"property" : "current_A"
+			}
+		 },
+		 {
+			"key" : "NSU/NSU09/current_B",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "source",
+				"property" : "current_B"
+			}
+		 },
+		 {
+			"key" : "NSU/NSU09/current_C",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "source",
+				"property" : "current_C"
+			}
+		 },
+		 {
+			"key" : "NBN/NBN01/powerA",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "constant_power_A"
+			}
+		 },
+		 {
+			"key" : "NBN/NBN01/powerB",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "constant_power_B"
+			}
+		 },
+		 {
+			"key" : "NBN/NBN01/powerC",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lef8_8",
+				"property" : "constant_power_C"
+			}
+		 },
+		 {
+			"key" : "NBM/NBM01/powerA",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lef8_11",
+				"property" : "constant_power_A"
+			}
+		 },
+		 {
+			"key" : "NBM/NBM01/powerB",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lef8_11",
+				"property" : "constant_power_B"
+			}
+		 },
+		 {
+			"key" : "NBM/NBM01/powerC",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lef8_11",
+				"property" : "constant_power_C"
+			}
+		 },
+		 {
+			"key" : "NBM/NBM02/powerA",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lef8_14",
+				"property" : "constant_power_A"
+			}
+		 },
+		 {
+			"key" : "NBM/NBM02/powerB",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lef8_14",
+				"property" : "constant_power_B"
+			}
+		 },
+		 {
+			"key" : "NBM/NBM02/powerC",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lef8_14",
+				"property" : "constant_power_C"
+			}
+		 },
+		 {
+			"key" : "NAM/NAM01/powerA",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lab9_5",
+				"property" : "constant_power_A"
+			}
+		 },
+		 {
+			"key" : "NAM/NAM01/powerB",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lab9_5",
+				"property" : "constant_power_B"
+			}
+		 },
+		 {
+			"key" : "NAM/NAM01/powerC",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lab9_5",
+				"property" : "constant_power_C"
+			}
+		 },
+		 {
+			"key" : "NBP/NBP01/powerA",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lgh2_4",
+				"property" : "constant_power_A"
+			}
+		 },
+		 {
+			"key" : "NBP/NBP01/powerB",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lgh2_4",
+				"property" : "constant_power_B"
+			}
+		 },
+		 {
+			"key" : "NBP/NBP01/powerC",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "lgh2_4",
+				"property" : "constant_power_C"
+			}
+		 }
+	]
+	
+}
