@@ -1,0 +1,137 @@
+{
+	"name" : "R1",
+	"period" : 300,
+	"publications" : [
+		 {
+			"global" : false,
+			"key" : "msource/measured_voltage_A",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "msource",
+				"property" : "measured_voltage_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "msource/measured_voltage_B",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "msource",
+				"property" : "measured_voltage_B"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "msource/measured_voltage_C",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "msource",
+				"property" : "measured_voltage_C"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "msource/measured_current_A",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "msource",
+				"property" : "measured_current_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "msource/measured_current_B",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "msource",
+				"property" : "measured_current_B"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "msource/measured_current_C",
+			"type" : "complex",
+			"unit" : "Amps",
+			"info" : {
+				"object" : "msource",
+				"property" : "measured_current_C"
+			}
+		 },
+         {
+			"global" : false,
+			"key" : "msource/measured_power_A",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "source",
+				"property" : "distribution_power_A"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "msource/measured_power_B",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "source",
+				"property" : "distribution_power_B"
+			}
+		 },
+		 {
+			"global" : false,
+			"key" : "msource/measured_power_C",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "source",
+				"property" : "distribution_power_C"
+			}
+		 }
+		 
+	],
+	"subscriptions" : [
+		 {
+			"key" : "NSU/NSU09/positive_sequence_voltage",
+			"type" : "complex",
+			"unit" : "Volts",
+			"info" : {
+				"object" : "source",
+				"property" : "positive_sequence_voltage"
+			}
+		 },
+
+		 {
+			"key" : "NBN/NBN01/powerA",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "l131",
+				"property" : "constant_power_A"
+			}
+		 },
+		 {
+			"key" : "NBN/NBN01/powerB",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "l131",
+				"property" : "constant_power_B"
+			}
+		 },
+		 {
+			"key" : "NBN/NBN01/powerC",
+			"type" : "complex",
+			"unit" : "VA",
+			"info" : {
+				"object" : "l131",
+				"property" : "constant_power_C"
+			}
+		 }
+	]
+	
+}

@@ -57,11 +57,10 @@ class DataBridge:
         
         #we need to feed the power consumption data as a daily parameter of per hour consumption
         inst['time'] = pd.to_datetime(inst['time'])
-        inst.to_csv("newRow.csv", index=False)
         return inst
 
     def collector(self, building, meter):
-        path = "../../dataset/{bldg}/{metername}_resample_5M.csv".format( bldg = building, metername = meter)
+        path = "../../dataset/{bldg}/{metername}_5M.csv".format( bldg = building, metername = meter)
         data = pd.read_csv(path)
         reqdata = self.requiredData(data)
         return reqdata    

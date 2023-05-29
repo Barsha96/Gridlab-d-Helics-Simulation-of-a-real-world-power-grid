@@ -24,11 +24,11 @@ work on the EF loop
 push the files to github
 
 4/23/23
-keep generating the output from virtualbox
-changing the interval to 5 minues to help process faster
+keep generating the output from virtualbox - done 
+changing the interval to 5 minues to help process faster - done
 Trying to install helics/gridlabd in workstation - gridlabd is not yet supported 
-Data visualization and correlation analysis 
-try to apply correlation on the data generated from r1 building
+Data visualization and correlation analysis - done
+try to apply correlation on the data generated from r1 building - done
 
 4/28/23
 So looks like the meter object must be the parent for the load to be able to correctly genertae the data
@@ -37,7 +37,61 @@ Working with IT help to resolve the windows gridlabd error
 Read a review paper 
 So the simulation is now running in the large data as well 
 
+4/30/23
+create the heatmap
+Read papers
 
+5/1/23
+Work on the EF loop - done
+Work on justin's model - done
+Do plant operations building too - done
+Ask justin to create the diagram (figure) for the entire model - done
+
+5/4/23
+Now we dont have to generate the inputs time and again as we can use the ones generated the first time - stupid me!
+
+
+5/8/23
+In the full GLM file, identify substations and which feeders are those - done 
+Identify feeder breakers - done
+Give the nomenclature for buildings - done
+generate 5M file for all those meters - done
+
+Process new output ignoring all unavailable and constant data and - done
+split the timestamp to hour, day, month, day of the week etc - done
+Generate the heatmap for this new dataset - done
+Fit a random forest/Gradient boosting -- Need to identify targets
+Access feature importance score attributed to each feature -- After 
+(based on these things decide which features to use and which not to)
+
+5/9/23
+Train LSTM model to predict the outputs - done
+
+5/10/23
+Analyze all the 5M data and see which should be used and which should not - done
+Generate the input files for all the necessary buildings - done
+Change the publications and subscriptions for main_complete - done
+Run the simulation on the main_complete - done
+
+5/11/23
+Try find out which parameters to input and which parameters to output and 
+generate the predicted outputs for those parameters - first detaild analysis of the model should be done
+Right now, the simulation runs and that is enough. 
+Push the simulation model to github - done !Thats it for running the simulation - Done
+
+Try to learn if you can generate the data further - just for Dr. Javaid's curiosity 
+Study on backtracking a cyber attack through substation analysis - Done
+
+5/12/23
+Identify if the simulation is working how it is supposed to: How do I check that? 
+    Create a data visualization to check current outputs at each node
+    Try to add current values to load and also the impedance and see how the outputs change
+    Toggle the impedance in the line and transformer and see how outputs change 
+
+5/17/23
+Analyse output 17 - The output from the substation from simulation where all the buildings are added. 
+(Make sure it has a pattern)
+Try process data for the input parameters for each building separately. Try to run the lstm model to it. 
 
 
 

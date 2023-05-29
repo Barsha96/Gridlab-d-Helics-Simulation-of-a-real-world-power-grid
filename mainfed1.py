@@ -5,12 +5,12 @@ import numpy as np
 import helics as h
 from math import pi
 import random
-from publication_hub import PubHub
+from publication_hub1 import PubHub
 from data_bridge import DataBridge
 
 def create_federate():
     fedinitstring = "--federates=1"
-    deltat = 1
+    deltat = 300
 
     helicsversion = h.helicsGetVersion()
     print("PI SENDER: Helics version = {}".format(helicsversion))
@@ -104,7 +104,7 @@ def assign_publication(fed, buildings, pubs, data, subs):
             pubids = [psv, cA, cB, cC]
             pub_values = [avgvoltage, currentA, currentB, currentC]
             publish_voltage_current(pubids, pub_values, timee, voltcurr_input)
-            voltcurr_input.to_csv("input_current_voltage.csv", index=False)
+            # voltcurr_input.to_csv("input_current_voltage.csv", index=False)
         
         if len(building_datas) != 0:
             for building_data in building_datas:
@@ -124,14 +124,21 @@ def assign_publication(fed, buildings, pubs, data, subs):
                 #This publishes load power consumption values which takes value of type complex in gridlabd
                 publish_power(power_pubid, power_pubvalues, timee, power_input)
                 
+                
         #This is to make the time sleep for 1 second
         time.sleep(1)
 
         #outputs
         #for node n125
-        output = get_subscriptions(subs, timee, output, "R1", "nef8_2", "voltage_A", "complex")
-        output = get_subscriptions(subs, timee, output, "R1", "nef8_2", "voltage_B", "complex")
-        output = get_subscriptions(subs, timee, output, "R1", "nef8_2", "voltage_C", "complex")
+        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_voltage_A", "complex")
+        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_voltage_B", "complex")
+        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_voltage_C", "complex")  
+        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_current_A", "complex")
+        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_current_B", "complex")
+        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_current_C", "complex")         
+        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_power_A", "complex")
+        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_power_B", "complex")
+        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_power_C", "complex")  
         # output = get_subscriptions(subs, timee, output, "R1", "n125", "current_A", "complex")
         # output = get_subscriptions(subs, timee, output, "R1", "n125", "current_B", "complex")
         # output = get_subscriptions(subs, timee, output, "R1", "n125", "current_C", "complex")
@@ -259,7 +266,9 @@ def main():
         "NBN":["NBN01"],
         "NBM":["NBM01","NBM02"],
         "NAM":["NAM01"],
-        "NBP":["NBP01"]
+        "NBP":["NBP01"],
+        "NAK":["NAK02"],
+        "NAG":["NAG02"]
     }
     pubs = pubhub.manage_publication_register(mains, pubs)
     print("fed: Publication registered")
@@ -275,9 +284,9 @@ def main():
     h.helicsFederateEnterExecutingMode(fed)
     print("PI SENDER: Entering execution mode")
 
-    # generate_input(mains, data)
+    generate_input(mains, data)
 
-    assign_publication(fed, mains, pubs, data, subs)
+    # assign_publication(fed, mains, pubs, data, subs)
 
     h.helicsFederateFinalize(fed)
     print("PI SENDER: Federate finalized")

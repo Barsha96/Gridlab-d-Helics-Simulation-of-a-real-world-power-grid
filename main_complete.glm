@@ -19,6 +19,7 @@ object helics_msg {
      configure main_complete.json;
 }
 
+
 //******************* Line Configurations *******************
 
 object line_configuration {
@@ -142,6 +143,28 @@ object fault_check {
 }
 
 //******************* NAM building portion *****************************************************
+
+object node {
+	name nsource;
+	phases ABCN;
+	nominal_voltage 12470.0;
+    parent msource;
+}
+
+object meter{
+    name msource;
+    phases ABCN;
+	nominal_voltage 12470.0;
+}
+
+object overhead_line{
+	name nsourcetosource;
+	phases ABCN;
+	from nsource;
+	to source;
+    length 2280;//approximation of average length of distribution line
+	configuration line1_cfg;
+	}
 
 object substation { //Tie
 	name source;
@@ -506,9 +529,6 @@ object load {
 	phases ABCN;
     parent mab9_9;
     nominal_voltage 208;
-    constant_power_A 80.2727+47.1818j;
-    constant_power_B 60.2727+0.1818j;
-    constant_power_C 120.2727+0.1818j;
 }
 
 //********************** NAK Meter2 ************************
@@ -721,9 +741,6 @@ object load {
 	phases ABCN;
     parent mab4_4;
     nominal_voltage 480;
-    constant_power_A 80.2727+47.1818j;
-    constant_power_B 60.2727+0.1818j;
-    constant_power_C 120.2727+0.1818j;
 }
 
 //***************** NAG Meter 2 ********************

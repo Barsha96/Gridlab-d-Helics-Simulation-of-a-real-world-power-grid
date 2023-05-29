@@ -87,10 +87,10 @@ class PubHub:
                 pubid7 = h.helicsFederateRegisterGlobalTypePublication(self.fed, powera, "complex", "")
                 pubs["{b}/{m}/powerA".format(b=building, m=meter)] = pubid7
                 powerb = "{b}/{m}/powerB".format(b=building, m=meter)
-                pubid8 = h.helicsFederateRegisterGlobalTypePublication(self.fed, powerb, "double" , "")
+                pubid8 = h.helicsFederateRegisterGlobalTypePublication(self.fed, powerb, "complex" , "")
                 pubs["{b}/{m}/powerB".format(b=building, m=meter)] = pubid8
                 powerc = "{b}/{m}/powerC".format(b=building, m=meter)
-                pubid9 = h.helicsFederateRegisterGlobalTypePublication(self.fed, powerc, "double", "")
+                pubid9 = h.helicsFederateRegisterGlobalTypePublication(self.fed, powerc, "complex", "")
                 pubs["{b}/{m}/powerC".format(b=building, m=meter)] = pubid9
                 
         return pubs
@@ -99,16 +99,32 @@ class PubHub:
         
         # config_file = "r1config.json"
         #for node 125
-        subid1 = h.helicsFederateRegisterSubscription(self.fed, "R1/nef8_2/voltage_A", "")
-        subs["R1/nef8_2/voltage_A"] = subid1
-        # self.add_publication_to_json(config_file, "nef8_2/voltage_A", "complex", "volts", "nef8_2", "voltage_A")
+        subid1 = h.helicsFederateRegisterSubscription(self.fed, "main/msource/measured_voltage_A", "")
+        subs["main/msource/measured_voltage_A"] = subid1
+        
+        subid2 = h.helicsFederateRegisterSubscription(self.fed, "main/msource/measured_voltage_B", "")
+        subs["main/msource/measured_voltage_B"] = subid2
+        
+        subid3 = h.helicsFederateRegisterSubscription(self.fed, "main/msource/measured_voltage_C", "")
+        subs["main/msource/measured_voltage_C"] = subid3
 
-        subid2 = h.helicsFederateRegisterSubscription(self.fed, "R1/nef8_2/voltage_B", "")
-        subs["R1/nef8_2/voltage_B"] = subid2
-        # self.add_publication_to_json(config_file, "nef8_2/voltage_A", "complex", "volts", "nef8_2", "voltage_A")
+        subid1 = h.helicsFederateRegisterSubscription(self.fed, "main/msource/measured_current_A", "")
+        subs["main/msource/measured_current_A"] = subid1
+        
+        subid2 = h.helicsFederateRegisterSubscription(self.fed, "main/msource/measured_current_B", "")
+        subs["main/msource/measured_current_B"] = subid2
+        
+        subid3 = h.helicsFederateRegisterSubscription(self.fed, "main/msource/measured_current_C", "")
+        subs["main/msource/measured_current_C"] = subid3
 
-        subid3 = h.helicsFederateRegisterSubscription(self.fed, "R1/nef8_2/voltage_C", "")
-        subs["R1/nef8_2/voltage_C"] = subid3
+        subid1 = h.helicsFederateRegisterSubscription(self.fed, "main/msource/measured_power_A", "")
+        subs["main/msource/measured_power_A"] = subid1
+
+        subid2 = h.helicsFederateRegisterSubscription(self.fed, "main/msource/measured_power_B", "")
+        subs["main/msource/measured_power_B"] = subid2
+        
+        subid3 = h.helicsFederateRegisterSubscription(self.fed, "main/msource/measured_power_C", "")
+        subs["main/msource/measured_power_C"] = subid3
         
         return subs
 
