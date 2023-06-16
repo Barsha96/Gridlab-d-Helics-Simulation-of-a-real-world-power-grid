@@ -237,8 +237,8 @@ def main():
         "NBM":["NBM01","NBM02"],
         "NAM":["NAM01"],
         "NBP":["NBP01"],
-        "NAK":["NAK02"],
-        "NAG":["NAG02"]
+        "NAK":["NAK02"]
+        # "NAG":["NAG02"]
     }
     pubs = pubhub.manage_publication_register(buildings, pubs)
     print("fed: Publication registered")
