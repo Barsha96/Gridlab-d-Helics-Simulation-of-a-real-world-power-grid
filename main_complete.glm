@@ -956,7 +956,7 @@ object load {
 //********************************* EF LOOP *************************************************
 
 object overhead_line{
-    name n00tonF;
+    name n00tonnF;
 	phases ABCN;
 	from n00;
 	to nF;
@@ -964,17 +964,23 @@ object overhead_line{
 	configuration line1_cfg;
 }
 
-object node {
-	name nF;
+object meter {
+	name nnF;
 	phases ABCN;
     nominal_voltage 12470.00;
+}
 
+object node {
+    name nF;
+    phases ABCN;
+    nominal_voltage 12470.00;
+    parent nnF;
 }
 
 object recloser{
     name nFtonef9;
 	phases ABCN;
-	from nA;
+	from nF;
 	to nef9;
     retry_time 10s;
     max_number_of_tries 3;

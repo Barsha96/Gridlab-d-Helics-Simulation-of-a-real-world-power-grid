@@ -8,7 +8,7 @@
 			"type" : "complex",
 			"unit" : "Volts",
 			"info" : {
-				"object" : "msource",
+				"object" : "nnF",
 				"property" : "measured_voltage_A"
 			}
 		 },
@@ -18,7 +18,7 @@
 			"type" : "complex",
 			"unit" : "Volts",
 			"info" : {
-				"object" : "msource",
+				"object" : "nnF",
 				"property" : "measured_voltage_B"
 			}
 		 }, 
@@ -28,7 +28,7 @@
 			"type" : "complex",
 			"unit" : "Volts",
 			"info" : {
-				"object" : "msource",
+				"object" : "nnF",
 				"property" : "measured_voltage_C"
 			}
 		 },
@@ -38,7 +38,7 @@
 			"type" : "complex",
 			"unit" : "Amps",
 			"info" : {
-				"object" : "msource",
+				"object" : "nnF",
 				"property" : "measured_current_A"
 			}
 		 },{
@@ -47,7 +47,7 @@
 			"type" : "complex",
 			"unit" : "Amps",
 			"info" : {
-				"object" : "msource",
+				"object" : "nnF",
 				"property" : "measured_current_B"
 			}
 		 },{
@@ -56,7 +56,7 @@
 			"type" : "complex",
 			"unit" : "Amps",
 			"info" : {
-				"object" : "msource",
+				"object" : "nnF",
 				"property" : "measured_current_C"
 			}
 		 }, 
@@ -66,8 +66,8 @@
 			"type" : "complex",
 			"unit" : "VA",
 			"info" : {
-				"object" : "source",
-				"property" : "distribution_power_A"
+				"object" : "nnF",
+				"property" : "measured_power_A"
 			}
 		 },
 		 {
@@ -76,8 +76,8 @@
 			"type" : "complex",
 			"unit" : "VA",
 			"info" : {
-				"object" : "source",
-				"property" : "distribution_power_B"
+				"object" : "nnF",
+				"property" : "measured_power_B"
 			}
 		 },
 		 {
@@ -86,12 +86,11 @@
 			"type" : "complex",
 			"unit" : "VA",
 			"info" : {
-				"object" : "source",
-				"property" : "distribution_power_C"
+				"object" : "nnF",
+				"property" : "measured_power_C"
 			}
 		 }
-		 
-		 
+		  
 	],
 	"subscriptions" : [
 

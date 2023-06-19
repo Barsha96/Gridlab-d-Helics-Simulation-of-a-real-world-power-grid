@@ -97,7 +97,7 @@ def assign_publication(fed, buildings, pubs, subs, anms):
     power_input = pd.DataFrame(columns = col2)
 
     for t in simulation_time:
-        if t > "2022-08-10 19:05:00":
+        if t > "2022-09-20 01:00:00":
             currenttime = h.helicsFederateRequestTime(fed, currenttime + 20)
             inputdata = substation_data[substation_data["time"] == t]
             timee = inputdata['time'].iloc[0]
@@ -134,45 +134,45 @@ def assign_publication(fed, buildings, pubs, subs, anms):
                     publish_power(power_pubid, power_pubvalues, timee, power_input)
         
             #This is to make the time sleep for 1 second
-            time.sleep(1)
+            # time.sleep(1)
 
-        #outputs
-        #for node n125
-        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_voltage_A", "complex", isanm)
-        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_voltage_B", "complex", isanm)
-        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_voltage_C", "complex", isanm)  
-        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_current_A", "complex", isanm)
-        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_current_B", "complex", isanm)
-        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_current_C", "complex", isanm)         
-        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_power_A", "complex", isanm)
-        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_power_B", "complex", isanm)
-        output = get_subscriptions(subs, timee, output, "main", "msource", "measured_power_C", "complex", isanm)  
-        # output = get_subscriptions(subs, timee, output, "R1", "n125", "current_A", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "n125", "current_B", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "n125", "current_C", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "n125", "power_A", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "n125", "power_B", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "n125", "power_C", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "n125", "maximum_voltage_error", "double")
+            #outputs
+            #for node n125
+            output = get_subscriptions(subs, timee, output, "main", "msource", "measured_voltage_A", "complex", isanm)
+            output = get_subscriptions(subs, timee, output, "main", "msource", "measured_voltage_B", "complex", isanm)
+            output = get_subscriptions(subs, timee, output, "main", "msource", "measured_voltage_C", "complex", isanm)  
+            output = get_subscriptions(subs, timee, output, "main", "msource", "measured_current_A", "complex", isanm)
+            output = get_subscriptions(subs, timee, output, "main", "msource", "measured_current_B", "complex", isanm)
+            output = get_subscriptions(subs, timee, output, "main", "msource", "measured_current_C", "complex", isanm)         
+            output = get_subscriptions(subs, timee, output, "main", "msource", "measured_power_A", "complex", isanm)
+            output = get_subscriptions(subs, timee, output, "main", "msource", "measured_power_B", "complex", isanm)
+            output = get_subscriptions(subs, timee, output, "main", "msource", "measured_power_C", "complex", isanm)  
+            # output = get_subscriptions(subs, timee, output, "R1", "n125", "current_A", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "n125", "current_B", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "n125", "current_C", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "n125", "power_A", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "n125", "power_B", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "n125", "power_C", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "n125", "maximum_voltage_error", "double")
 
-        #for load l131
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "measured_voltage_A", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "measured_voltage_B", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "measured_voltage_C", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_power_A", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_power_B", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_power_C", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_impedance_A", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_impedance_B", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_impedance_C", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_current_A", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_current_B", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_current_C", "complex")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "power_pf_A", "double")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "power_pf_B", "double")
-        # output = get_subscriptions(subs, timee, output, "R1", "l131", "power_pf_C", "double")
+            #for load l131
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "measured_voltage_A", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "measured_voltage_B", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "measured_voltage_C", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_power_A", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_power_B", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_power_C", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_impedance_A", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_impedance_B", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_impedance_C", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_current_A", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_current_B", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "constant_current_C", "complex")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "power_pf_A", "double")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "power_pf_B", "double")
+            # output = get_subscriptions(subs, timee, output, "R1", "l131", "power_pf_C", "double")
 
-        output.to_csv("output.csv", index=False)
+            output.to_csv("output.csv", index=False)
             
 def publish_voltage_current(pubid, pub_values, time, voltcurr_input):
     
