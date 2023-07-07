@@ -97,7 +97,7 @@ def assign_publication(fed, buildings, pubs, subs, anms):
     power_input = pd.DataFrame(columns = col2)
 
     for t in simulation_time:
-        if t > "2022-09-20 01:00:00":
+        if t > "2022-09-29 11:20:00":
             currenttime = h.helicsFederateRequestTime(fed, currenttime + 20)
             inputdata = substation_data[substation_data["time"] == t]
             timee = inputdata['time'].iloc[0]

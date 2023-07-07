@@ -956,7 +956,7 @@ object load {
 //********************************* EF LOOP *************************************************
 
 object overhead_line{
-    name n00tonnF;
+    name n00tonF;
 	phases ABCN;
 	from n00;
 	to nF;
@@ -1203,10 +1203,17 @@ object switch {
     status CLOSED;
 }
 
+object meter {
+    name nnef8_12;
+    phases ABCN;
+    nominal_voltage 12470.0;
+}
+
 object node {
     name nef8_12;
     phases ABCN;
     nominal_voltage 12470.0;
+    parent nnef8_12;
 }
 
 object fuse {

@@ -8,7 +8,7 @@
 			"type" : "complex",
 			"unit" : "Volts",
 			"info" : {
-				"object" : "nnF",
+				"object" : "nnef8_12",
 				"property" : "measured_voltage_A"
 			}
 		 },
@@ -18,7 +18,7 @@
 			"type" : "complex",
 			"unit" : "Volts",
 			"info" : {
-				"object" : "nnF",
+				"object" : "nnef8_12",
 				"property" : "measured_voltage_B"
 			}
 		 }, 
@@ -28,7 +28,7 @@
 			"type" : "complex",
 			"unit" : "Volts",
 			"info" : {
-				"object" : "nnF",
+				"object" : "nnef8_12",
 				"property" : "measured_voltage_C"
 			}
 		 },
@@ -38,7 +38,7 @@
 			"type" : "complex",
 			"unit" : "Amps",
 			"info" : {
-				"object" : "nnF",
+				"object" : "nnef8_12",
 				"property" : "measured_current_A"
 			}
 		 },{
@@ -47,7 +47,7 @@
 			"type" : "complex",
 			"unit" : "Amps",
 			"info" : {
-				"object" : "nnF",
+				"object" : "nnef8_12",
 				"property" : "measured_current_B"
 			}
 		 },{
@@ -56,7 +56,7 @@
 			"type" : "complex",
 			"unit" : "Amps",
 			"info" : {
-				"object" : "nnF",
+				"object" : "nnef8_12",
 				"property" : "measured_current_C"
 			}
 		 }, 
@@ -66,7 +66,7 @@
 			"type" : "complex",
 			"unit" : "VA",
 			"info" : {
-				"object" : "nnF",
+				"object" : "nnef8_12",
 				"property" : "measured_power_A"
 			}
 		 },
@@ -76,7 +76,7 @@
 			"type" : "complex",
 			"unit" : "VA",
 			"info" : {
-				"object" : "nnF",
+				"object" : "nnef8_12",
 				"property" : "measured_power_B"
 			}
 		 },
@@ -86,7 +86,7 @@
 			"type" : "complex",
 			"unit" : "VA",
 			"info" : {
-				"object" : "nnF",
+				"object" : "nnef8_12",
 				"property" : "measured_power_C"
 			}
 		 }
